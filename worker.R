@@ -59,8 +59,8 @@ GENE = tolower(config$gene)
 outputPath = paste("output", toupper(GENE), sep = "/")
 if (!dir.exists(outputPath)) dir.create(outputPath)
 
-# # Parse variants
-# setUpEnvAndRun("Parsing variants", "lib/parseVariants.R")
+# Parse variants
+setUpEnvAndRun("Parsing variants", "lib/parseVariants.R")
 
 # Prepare burden-test associated phenotypes
 library(data.table)
@@ -79,15 +79,15 @@ bPhenotypes[, field_id := as.numeric(str_split(field_code, "_", simplify = T)[, 
 phenoCategory = fread(config$phenotype_list)
 bPhenotypes = merge(bPhenotypes, phenoCategory, by = "field_id")
 
-# # Parse phenotypes
-# setUpEnvAndRun("Parsing phenotypes", "lib/parsePhenotypes.R")
-# 
-# # Merge phenotypes
-# setUpEnvAndRun("Merging phenotypes and variants", "lib/mergePhenotypesAndVariants.R")
-# 
-# # Benchmark variant effect predictors using quantitative traits
-# setUpEnvAndRun("Benchmarking variant predictors using quantitative traits", "lib/benchmarkWithQuantTraits.R")
-# 
+# Parse phenotypes
+setUpEnvAndRun("Parsing phenotypes", "lib/parsePhenotypes.R")
+
+# Merge phenotypes
+setUpEnvAndRun("Merging phenotypes and variants", "lib/mergePhenotypesAndVariants.R")
+
+# Benchmark variant effect predictors using quantitative traits
+setUpEnvAndRun("Benchmarking variant predictors using quantitative traits", "lib/benchmarkWithQuantTraits.R")
+
 # Benchmark variant effect predictors using categorical traits
 setUpEnvAndRun("Benchmarking variant predictors using categorical traits", "lib/benchmarkWithCatTraits.R")
 
