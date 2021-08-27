@@ -1,0 +1,7 @@
+db_connect.yaml
+input/
+log/
+output/
+.Rhistory
+Rplots.pdf
+archived_outputs/

@@ -1,0 +1,42 @@
+###
+# Run-specific settings
+# Adjust this section for each run.
+###
+gene_list: common/genes.csv
+phenotype_list: common/phenotypeDescriptions.csv
+rscript_path: Rscript.exe
+occurance_cutoff: 10 # Variant occurance cut-off for categorical phenotypes
+bootstrap_iterations: 1000
+
+###
+# Global settings
+# Adjust this section only when using non-default inputs.
+###
+all_variants_path: merged_hgvs.csv
+unique_variants_path: allv_withweights.csv
+withdraw_eids_path: common/withdraws_20210809.csv
+phenotypes_path: phenotype_description.csv
+db_connect_path: db_connect.yaml
+variant_predictors:
+  VARITY R: VARITY_R # Format: [predictor name]: [predictor column name in unique variants file]
+  VARITY ER: VARITY_ER
+  PolyPhen-2: Polyphen2_selected_HVAR_score
+  PROVEAN: provean_flipped
+  SIFT: sift_flipped
+  FATHMM: FATHMM_flipped
+  MPC: mpc_score
+  LRT: LRT_flipped
+  REVEL: REVEL_score
+  PrimateAI: PrimateAI_score
+  CADD: CADD_raw
+  DANN: DANN_score
+  Eigen: Eigen-raw_coding
+  GenoCanyon: GenoCanyon_score
+  M-CAP: M-CAP_score
+  MetaLR: MetaLR_score
+  MetaSVM: MetaSVM_score
+  MutationAssessor: MutationAssessor_selected_score
+  MutationTaster: MutationTaster_selected_score
+  SiPhy: SiPhy_29way_logOdds
+  MISTIC: mistic_score
+plot_individual_correlations: false
