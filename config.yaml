@@ -18,8 +18,7 @@ withdraw_eids_path: common/withdraws_20210809.csv
 phenotypes_path: phenotype_description.csv
 db_connect_path: db_connect.yaml
 variant_predictors:
-  VARITY R: VARITY_R # Format: [predictor name]: [predictor column name in unique variants file]
-  VARITY ER: VARITY_ER
+  VARITY: VARITY_R # Format: [predictor name]: [predictor column name in unique variants file]
   PolyPhen-2: Polyphen2_selected_HVAR_score
   PROVEAN: provean_flipped
   SIFT: sift_flipped
