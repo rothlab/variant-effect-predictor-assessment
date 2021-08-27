@@ -10,43 +10,12 @@ library(dplyr)
 library(grid)
 
 # Set arguments if not passed in already as config
-if (exists("config")) {
-  GENE = tolower(config$gene)
-  UNIQUE_VARIANTs_PATH = config$unique_variants_path
-  VARIANT_PREDICTORS = config$variant_predictors
-  PLOT_INDIVIDUAL_CORRELATIONS = config$plot_individual_correlations
-  BOOTSTRAP_N = config$bootstrap_iterations
-  VARIANTS_CUTOFF = config$occurance_cutoff
-} else {
-  GENE = "TEX22"
-  UNIQUE_VARIANTs_PATH = "allv_withweights.csv"
-  VARIANT_PREDICTORS = list("VARITY ER" = "VARITY_ER",
-                            "VARITY R" = "VARITY_R", 
-                            "PolyPhen-2" = "Polyphen2_selected_HVAR_score",
-                            "PROVEAN" = "provean_flipped",
-                            "SIFT" = "sift_flipped",
-                            "FATHMM" = "FATHMM_flipped",
-                            "MPC" = "mpc_score",
-                            "LRT" = "LRT_flipped",
-                            "REVEL" = "REVEL_score",
-                            "PrimateAI" = "PrimateAI_score",
-                            "CADD" = "CADD_raw",
-                            "DANN" = "DANN_score",
-                            "Eigen" = "Eigen-raw_coding",
-                            "GenoCanyon" = "GenoCanyon_score",
-                            "M-CAP" = "M-CAP_score",
-                            "MetaLR" = "MetaLR_score",
-                            "MetaSVM" = "MetaSVM_score",
-                            "MutationAssessor" = "MutationAssessor_selected_score",
-                            "MutationTaster" = "MutationTaster_selected_score",
-                            "SiPhy" = "SiPhy_29way_logOdds",
-                            "EVmutation" = "evm_score_flipped",
-                            "MISTIC" = "mistic_score"
-                            )
-  PLOT_INDIVIDUAL_CORRELATIONS = FALSE
-  VARIANTS_CUTOFF = 10
-  BOOTSTRAP_N = 1000
-}
+GENE = tolower(config$gene)
+UNIQUE_VARIANTs_PATH = config$unique_variants_path
+VARIANT_PREDICTORS = config$variant_predictors
+PLOT_INDIVIDUAL_CORRELATIONS = config$plot_individual_correlations
+BOOTSTRAP_N = config$bootstrap_iterations
+VARIANTS_CUTOFF = config$occurance_cutoff
 
 ###
 # Process variants with quantitative phenotypes

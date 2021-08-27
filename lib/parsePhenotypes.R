@@ -8,12 +8,8 @@ library(odbc)
 library(RMariaDB)
 
 # Set arguments if not passed in already as config
-if (exists("config")) {
-  GENE = tolower(config$gene)
-  DBCONNECTFILEPATH = config$db_connect_path
-} else {
-  GENE = "brca1"
-}
+GENE = tolower(config$gene)
+DBCONNECTFILEPATH = config$db_connect_path
 
 # Load database (DB) parameters
 source("lib/loadConfig.R")

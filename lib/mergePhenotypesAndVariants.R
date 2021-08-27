@@ -1,11 +1,7 @@
 library(data.table)
 
 # Set arguments if not passed in already as config
-if (exists("config")) {
-  GENE = tolower(config$gene)
-} else {
-  GENE = "abca1"
-}
+GENE = tolower(config$gene)
 
 # Load filtered phenotypes and variants
 phenotypes = fread(sprintf("output/%s/%s_phenotypes_filtered.csv", toupper(GENE), GENE))

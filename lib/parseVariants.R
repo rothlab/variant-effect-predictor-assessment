@@ -2,17 +2,10 @@ library(data.table)
 library(stringr)
 
 # Set arguments if not passed in already as config
-if (exists("config")) {
-  GENE = tolower(config$gene)
-  ALL_VARIANTs_PATH = config$all_variants_path
-  UNIQUE_VARIANTs_PATH = config$unique_variants_path
-  WITHDRAW_EIDs_PATH = config$withdraw_eids_path
-} else {
-  GENE = "gigyf1"
-  ALL_VARIANTs_PATH = "merged_hgvs.csv"
-  UNIQUE_VARIANTs_PATH = "allv_withweights.csv"
-  WITHDRAW_EIDs_PATH = "common/withdraws_20210201.csv"
-}
+GENE = tolower(config$gene)
+ALL_VARIANTs_PATH = config$all_variants_path
+UNIQUE_VARIANTs_PATH = config$unique_variants_path
+WITHDRAW_EIDs_PATH = config$withdraw_eids_path
 
 # Load variants related files
 # 1) All variants with HGVS
