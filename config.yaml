@@ -1,21 +1,15 @@
 ###
 # Run-specific settings
-# Adjust this section for each run.
+# Descriptions are avilable in the README.md file.
 ###
 gene_list: common/genes.csv
 phenotype_list: common/phenotypeDescriptions.csv
 rscript_path: Rscript.exe
-occurance_cutoff: 10 # Variant occurance cut-off for categorical phenotypes
+occurance_cutoff: 10
 bootstrap_iterations: 1000
-
-###
-# Global settings
-# Adjust this section only when using non-default inputs.
-###
 all_variants_path: merged_hgvs.csv
 unique_variants_path: allv_withweights.csv
-withdraw_eids_path: common/withdraws_20210809.csv
-phenotypes_path: phenotype_description.csv
+withdraw_eids_path: common/withdraws.csv
 db_connect_path: db_connect.yaml
 variant_predictors:
   VARITY: VARITY_R # Format: [predictor name]: [predictor column name in unique variants file]
@@ -38,4 +32,3 @@ variant_predictors:
   MutationTaster: MutationTaster_selected_score
   SiPhy: SiPhy_29way_logOdds
   MISTIC: mistic_score
-plot_individual_correlations: false

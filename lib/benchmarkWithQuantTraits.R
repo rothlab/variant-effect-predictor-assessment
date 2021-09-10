@@ -13,7 +13,7 @@ library(grid)
 GENE = tolower(config$gene)
 UNIQUE_VARIANTs_PATH = config$unique_variants_path
 VARIANT_PREDICTORS = config$variant_predictors
-PLOT_INDIVIDUAL_CORRELATIONS = config$plot_individual_correlations
+PLOT_INDIVIDUAL_CORRELATIONS = FALSE
 BOOTSTRAP_N = config$bootstrap_iterations
 VARIANTS_CUTOFF = config$occurance_cutoff
 
@@ -208,6 +208,37 @@ correlations = apply(bPhenotypes[field_type == "quantitative"],
 correlations = rbindlist(correlations)
 correlations$index = 1:nrow(correlations)
 
+plotTable = correlations[, .(phenotype, predictor = name, type, index, avg_score = avg_pcc, avg_pcc_ci)]
+
+# Order predictors by its average performance
+predictorPerf = plotTable[, .(avg_score = mean(abs(avg_score))), by = "predictor"]
+predictorPerf[order(avg_score, decreasing = T), predictor_index := 1:nrow(predictorPerf)]
+plotTable = merge(plotTable, predictorPerf[, .(predictor, predictor_index)], by = "predictor")
+plotTable = plotTable[complete.cases(plotTable)]
+plotTable$pcc_ci_low = as.numeric(str_split(plotTable$avg_pcc_ci, fixed("|"), simplify = T)[, 1])
+plotTable$pcc_ci_high = as.numeric(str_split(plotTable$avg_pcc_ci, fixed("|"), simplify = T)[, 2])
+plotTable[, total_sum := sum(avg_score), by = "predictor"]
+
+# Plot PCC barplot
+plot = plotTable %>%
+  mutate(predictor = fct_reorder(predictor, total_sum)) %>%
+  ggplot(aes(x = predictor, y = avg_score, fill = phenotype)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_errorbar(aes(ymin = pcc_ci_low, ymax = pcc_ci_high),
+                width = .2, position = position_dodge(0.9)) +
+  scale_fill_manual(values = c("#40B0A6")) + # Colour-blindness friendly
+  labs(x = "Variant Effect Predictor", y = "PRC") +
+  theme_minimal(base_size = 18) +
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 20),
+        axis.text.y = element_text(size = 20),
+        legend.text = element_text(size = 20)) +
+  guides(fill = guide_legend(nrow = 4, byrow = TRUE))
+
+ggsave(sprintf("output/%s/%s_quant_bootstrap_barplot.png", toupper(GENE), GENE), plot, dpi = 300,
+       height = 7.5,
+       width = max(10, floor(length(VARIANT_PREDICTORS) * 1.1)), units = "in")
+
 # Helper function: format CI
 formatCI = function(range) {
   if (any(is.na(range))) return("NA")
@@ -216,13 +247,7 @@ formatCI = function(range) {
 }
 
 # Format CI
-plotTable = correlations[, .(phenotype, predictor = name, type, index, avg_score = avg_pcc,
-                             avg_score_ci = lapply(avg_pcc_ci, formatCI))]
-
-# Order predictors by its average performance
-predictorPerf = plotTable[, .(avg_score = mean(abs(avg_score))), by = "predictor"]
-predictorPerf[order(avg_score, decreasing = T), predictor_index := 1:nrow(predictorPerf)]
-plotTable = merge(plotTable, predictorPerf[, .(predictor, predictor_index)], by = "predictor")
+plotTable = plotTable[, avg_score_ci := lapply(avg_pcc_ci, formatCI)]
 
 # Plot PCC heatmap
 plot = plotTable %>%

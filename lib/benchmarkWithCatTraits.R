@@ -15,7 +15,6 @@ library(parallel)
 GENE = tolower(config$gene)
 UNIQUE_VARIANTs_PATH = config$unique_variants_path
 VARIANT_PREDICTORS = config$variant_predictors
-PLOT_INDIVIDUAL_CORRELATIONS = config$plot_individual_correlations
 BOOTSTRAP_N = config$bootstrap_iterations
 MIN_PATIENT_CUTOFF = config$occurance_cutoff
 VARIANTS_CUTOFF = config$occurance_cutoff
