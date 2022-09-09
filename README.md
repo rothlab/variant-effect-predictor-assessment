@@ -17,6 +17,8 @@ Next, clone the repository by typing the following into your command line interf
 git clone https://github.com/kvnkuang/variant-effect-predictor-assessment
 ```
 
+You also need to download VARITY predictions (http://varity.varianteffect.org/downloads/varity_all_predictions.tar.gz), unzip the file (varity_all_predictions.txt) and move it to the `common` folder.
+
 ## Confiugre the running parameters
 
 The [config.yaml](config.yaml) file lists all the running parameters that you can congifure.
