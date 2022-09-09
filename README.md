@@ -87,6 +87,12 @@ There are two required arguments:
 1. **configuration-file:** the path to configuration file (e.g. config.yaml)
 2. **log-dir:** the directory to the log files (e.g. logs/)
 
+## Output
+
+All output should be stored in the `output` folder.
+
+In addition, a `pval.csv` is created in the root folder containing all pairwise predictor comparisons. The `pval.csv` included in this repository was generated from the benchmark described in the manuscript.
+
 ## Contact us
 
 If you have any feedback, suggestions or questions, please reach out via [email](mailto:kvn.kuang@mail.utoronto.ca) or open an issue on github.
