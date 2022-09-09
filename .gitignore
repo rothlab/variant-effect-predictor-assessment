@@ -3,3 +3,6 @@ log/
 output/
 .Rhistory
 Rplots.pdf
+lib/.DS_Store
+common/.DS_Store
+.DS_Store
